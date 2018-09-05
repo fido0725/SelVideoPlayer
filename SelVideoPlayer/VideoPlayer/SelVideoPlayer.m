@@ -89,19 +89,19 @@ typedef NS_ENUM(NSInteger, SelVideoPlayerState) {
 {
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
     if (orientation == UIDeviceOrientationLandscapeLeft){
-        if (!_isFullScreen){
+//        if (!_isFullScreen){
            [self _videoZoomInWithDirection:UIInterfaceOrientationLandscapeRight];
-        }
+//        }
     }
     else if (orientation == UIDeviceOrientationLandscapeRight){
-        if (!_isFullScreen){
+//        if (!_isFullScreen){
            [self _videoZoomInWithDirection:UIInterfaceOrientationLandscapeLeft];
-        }
+//        }
     }
     else if(orientation == UIDeviceOrientationPortrait){
-        if (_isFullScreen){
+//        if (_isFullScreen){
             [self _videoZoomOut];
-        }
+//        }
     }
 }
 
@@ -111,8 +111,10 @@ typedef NS_ENUM(NSInteger, SelVideoPlayerState) {
  */
 - (void)_videoZoomInWithDirection:(UIInterfaceOrientation)orientation
 {
-    _originalSuperview = self.superview;
-    _originalRect = self.frame;
+    if (!self.isFullScreen) {
+        _originalSuperview = self.superview;
+        _originalRect = self.frame;
+    }
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self];
     
